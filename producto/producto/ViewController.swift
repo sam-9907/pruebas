@@ -46,8 +46,6 @@ class ViewController: UIViewController, UICollectionViewDelegate,UICollectionVie
         
         let registDate = UserDefaults.standard
         
-//        en caso de crasheo
-//        registDate.removeObject(forKey: "dateEvents")
         if let listEvents = registDate.value(forKey: "dateEvents") as? Data{
             let temp = try? PropertyListDecoder().decode(Array<daySelected>.self, from: listEvents)
             
@@ -102,7 +100,6 @@ class ViewController: UIViewController, UICollectionViewDelegate,UICollectionVie
             month = 11
             year -= 1
             direccion = -1
-            //GetStartDateDayPosition()
            if yearbi > 0{
                 yearbi -= 1
             }
@@ -161,7 +158,7 @@ class ViewController: UIViewController, UICollectionViewDelegate,UICollectionVie
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return diasdelmes[month]
+       
         switch direccion {
         case 0:
             return diasdelmes[month] + numero
@@ -180,7 +177,6 @@ class ViewController: UIViewController, UICollectionViewDelegate,UICollectionVie
         cell.fechalabel.textColor = UIColor.black
         cell.circulo.isHidden = true
         
-        //cell.fechalabel.text = "\(indexPath.row + 1)"
         if cell.isHidden{
             cell.isHidden = false
         }
@@ -206,12 +202,12 @@ class ViewController: UIViewController, UICollectionViewDelegate,UICollectionVie
         default:
             break
         }
-        if currentMes == Meses[calendario.component(.month, from: date) - 1] && year == calendario.component(.year, from: date) && indexPath.row + 1 == day{
-           // cell.backgroundColor = UIColor.yellow
+        if currentMes == Meses[calendario.component(.month, from: date) - 1] && year == calendario.component(.year, from: date) && indexPath.row + 1 - numero == day{
+         
             cell.circulo.isHidden = false
             cell.dibujacirculo()
         }
-        
+
         //Revisa si hay un evento en la fecha
         if dateEventsVC.count != 0 {
             for i in 1...dateEventsVC.count {
